@@ -11,11 +11,17 @@ export default function AddProduct() {
   const [price, setPrice] = useState(0);
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
-  const [photoUrls, setPhotoUrls] = useState([]);
+  const [photoUrls, setPhotoUrls] = useState<string[]>([]);
   const queryClient = useQueryClient();
 
   const addProductMutation = useMutation(
-    async (productData) => {
+    async (productData: {
+      title: string;
+      price: number;
+      description: string;
+      category: string;
+      images: string[];
+    }) => {
       await axiosProductsInstance.post("/", productData);
     },
     {
@@ -41,7 +47,7 @@ export default function AddProduct() {
     await addProductMutation.mutateAsync(productData);
   };
 
-  const handlePhotoUpload = async (e: any) => {
+  const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files as FileList);
     const uploadedUrls: string[] = [];
 
@@ -131,7 +137,7 @@ export default function AddProduct() {
           </div>
           <div className="flex justify-center">
             <input
-              className="px-5 py-5 border-2 border-white bg-black "
+              className="px-5 py-5 border-2 border-white bg-black"
               type="file"
               multiple
               onChange={handlePhotoUpload}
@@ -139,7 +145,7 @@ export default function AddProduct() {
           </div>
           <button
             type="submit"
-            className="text-white border-2 border-white px-5 py-2 rounded-3xl "
+            className="text-white border-2 border-white px-5 py-2 rounded-3xl"
           >
             Отправить
           </button>

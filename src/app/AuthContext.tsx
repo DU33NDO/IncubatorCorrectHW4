@@ -10,7 +10,15 @@ import React, {
 import { useRouter } from "next/navigation";
 import axios from "axios";
 
-const AuthContext = createContext(null);
+// Определите интерфейс для контекста
+interface AuthContextType {
+  isAuthenticated: boolean;
+  setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+  logout: () => void;
+}
+
+// Создайте контекст с типом AuthContextType или null
+const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
@@ -62,4 +70,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export const useAuth = () => useContext(AuthContext);
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+  return context;
+};
