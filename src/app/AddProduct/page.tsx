@@ -118,7 +118,7 @@ export default function AddProduct() {
               value="men's clothing"
               onChange={(e) => setCategory(e.target.value)}
             />
-            <label htmlFor="categoryMenClothing"> Men's clothing</label>
+            <label htmlFor="categoryMenClothing"> Men clothing</label>
             <br />
             <input
               type="radio"
@@ -127,7 +127,7 @@ export default function AddProduct() {
               value="women's clothing"
               onChange={(e) => setCategory(e.target.value)}
             />
-            <label htmlFor="categoryWomenClothing"> Women's clothing</label>
+            <label htmlFor="categoryWomenClothing"> Women clothing</label>
           </div>
           <div className="flex justify-center">
             <input
