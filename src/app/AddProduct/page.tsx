@@ -29,7 +29,7 @@ export default function AddProduct() {
     }
   );
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const productData = {
       title,
@@ -38,12 +38,12 @@ export default function AddProduct() {
       category,
       images: photoUrls,
     };
-    addProductMutation.mutate(productData);
+    await addProductMutation.mutateAsync(productData);
   };
 
-  const handlePhotoUpload = async (e) => {
-    const files = Array.from(e.target.files);
-    const uploadedUrls = [];
+  const handlePhotoUpload = async (e: any) => {
+    const files = Array.from(e.target.files as FileList);
+    const uploadedUrls: string[] = [];
 
     for (const file of files) {
       const formData = new FormData();

@@ -23,7 +23,9 @@ export default function ListOfProducts() {
 
   if (error) {
     return (
-      <div className="px-60 mt-20">An error occurred: {error.message}</div>
+      <div className="px-60 mt-20">
+        An error occurred: {(error as Error).message}
+      </div>
     );
   }
 
